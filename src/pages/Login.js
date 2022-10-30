@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { googlesignIn,FacebookSignIn, user, LoginWithEmail } = UserAuth();
+  const { googlesignIn, user, LoginWithEmail } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,14 +21,6 @@ const Login = () => {
     }
   };
 
-  const HandleFacebookSignIn = async () => {
-    try {
-      await FacebookSignIn();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const HandleSubmit = async () => {
     try {
       await LoginWithEmail(email, password);
@@ -41,7 +33,7 @@ const Login = () => {
     if (user != null) {
       navigate("/React_Dashboard/");
     }
-  }, [user,navigate]);
+  }, [user, navigate]);
 
   return (
     <div className="login mt-5 flex flex-col justify-center items-center w-full">
@@ -80,12 +72,12 @@ const Login = () => {
               <div className="flex flex-row justify-between text-gray-600 font-semibold text-sm ">
                 <div>PASSWORD</div>
                 <div className="text-blue-500">
-                  <Link to='/forgotpassword'>forgot password</Link>
+                  <Link to="/forgotpassword">forgot password</Link>
                 </div>
               </div>
               <input
                 type="password"
-                placeholder=".  .  .  .  ."
+                placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-2 rounded-md mt-1 p-2 outline-blue-500 border border-gray-300"
               />
@@ -106,9 +98,6 @@ const Login = () => {
             </h2>
             <div className="text-sm mb-6 pl-12">
               <GoogleButton onClick={HandleGoogleSignIn} />
-            </div>
-            <div className="text-sm mb-6 pl-12">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm p-3 px-16" onClick={HandleFacebookSignIn}> Facebook Login </button>
             </div>
 
             <p className="text-gray-500 font-sm text-center font-medium mb-8">
